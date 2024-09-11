@@ -124,3 +124,13 @@ SELECT *
 FROM layoffs_staging3
 WHERE industry IS NULL 
 OR industry = '';
+
+SELECT *
+FROM layoffs_staging3 t1
+JOIN layoffs_staging3 t2
+	ON t1.company = t2.company
+WHERE (t1.industry IS NULL OR t1.industry = '')
+AND t2.industry is NOT NULL;
+
+
+
