@@ -133,4 +133,39 @@ WHERE (t1.industry IS NULL OR t1.industry = '')
 AND t2.industry is NOT NULL;
 
 
+UPDATE layoffs_staging3 t1
+JOIN layoffs_staging3 t2
+	ON t1.company = t2.company
+SET t1.industry = t2.industry
+WHERE (t1.industry IS NULL OR t1.industry = '')
+AND t2.industry is NOT NULL;
+
+
+
+SELECT *
+FROM layoffs_staging3
+WHERE company = 'Airbnb';
+
+UPDATE layoffs_staging3
+SET industry = null
+WHERE industry = "";
+
+-- DELETE unused columns having null values
+SELECT *
+FROM layoffs_staging3
+WHERE total_laid_off IS NULL
+AND percentage_laid_off IS NULL; 
+
+DELETE 
+FROM layoffs_staging3
+WHERE total_laid_off IS NULL
+AND percentage_laid_off IS NULL; 
+
+SELECT *
+FROM layoffs_staging3;
+
+
+-- REMOVE a column entirely
+ALTER TABLE layoffs_staging3
+DROP COLUMN row_num;
 
